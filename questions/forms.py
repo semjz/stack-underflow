@@ -1,19 +1,32 @@
 from django import forms
-
 from .models import Question, Answer, Tag
 
 
 class QuestionForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Question
+        fields = ["title", "body", "tags"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
+        self.fields["tags"].widget = forms.CheckboxSelectMultiple()
 
 
 class AnswerForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Answer
+        fields = ["body"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
+        self.fields["body"].widget = forms.Textarea(attrs={"rows": 5})
 
 
 class SearchForm(forms.Form):
-    pass
+    query = forms.CharField()
 
 
 class TagForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Tag
+        fields = ["name"]
