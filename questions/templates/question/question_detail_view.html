@@ -1,3 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
+    {{ question.title }}
+    {{ question.body }}
+    {{ question.created_at }}
+    {{ question.updated_at }}
+    {{ question.votes }}
+    {{ question.user.username }}
+    {{ question.tag }}
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="up-vote">
+        <input type="submit" value="down-vote">
+        <input type="submit" value="edit">
+    </form>
+    {% for answer in answers %}
+        {{ answer.body }}
+        {{ answer.created_at }}
+        {{ answer.updated_at }}
+        {{ answer.votes }}
+        {{ answer.user }}
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="up-vote">
+            <input type="submit" value="down-vote">
+            <input type="submit" value="edit">
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="submit">
+        </form>
+    {% endfor %}
 {% endblock %}
