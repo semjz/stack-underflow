@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>{{username}}</p>
-    <p>{{email}}</p>
-    <p>{{date_joined}}</p>
-    <p>{{phone_number}}</p>
-    <p>{{national_id}}</p>
-    <p>{{is_active}}</p>
+    <p>{{user.username}}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.date_joined}}</p>
+    <p>{{user.phone_number}}</p>
+    <p>{{user.national_id}}</p>
+    <p>{{user.is_active}}</p>
 {% endblock %}
