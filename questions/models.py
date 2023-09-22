@@ -8,18 +8,24 @@ class Tag(models.Model):
 
 
 class Question(models.Model):
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=100)
     body = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
-    vote = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    upvoters = models.ManyToManyField(User, related_name="question_upvoters")
+    downvoters = models.ManyToManyField(User, related_name="question_downvoters")
+    tags = models.ManyToManyField(Tag)
+    votes = models.IntegerField()
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     body = models.TextField()
-    vote = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    upvoters = models.ManyToManyField(User, related_name="answer_upvoters")
+    downvoters = models.ManyToManyField(User, related_name="answer_downvoters")
+    votes = models.IntegerField()
+
