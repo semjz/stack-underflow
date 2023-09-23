@@ -16,7 +16,10 @@ class Question(models.Model):
     upvoters = models.ManyToManyField(User, related_name="question_upvoters")
     downvoters = models.ManyToManyField(User, related_name="question_downvoters")
     tags = models.ManyToManyField(Tag)
-    votes = models.IntegerField()
+
+    @property
+    def votes(self):
+        return self.upvoters.count() - self.downvoters.count()
 
 
 class Answer(models.Model):
@@ -27,5 +30,8 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     upvoters = models.ManyToManyField(User, related_name="answer_upvoters")
     downvoters = models.ManyToManyField(User, related_name="answer_downvoters")
-    votes = models.IntegerField()
+
+    @property
+    def votes(self):
+        return self.upvoters.count() - self.downvoters.count()
 
