@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% for question in questions %}
-        {{ question.title }}
-        {{ question.user.username }}
-        {{ question.created_at }}
-    {% endfor %}
+    <ul>
+        {% for question in questions %}
+            <li>
+               {{ question.title }}<br>
+                {{ question.user.username }}<br>
+                {{ question.created_at }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

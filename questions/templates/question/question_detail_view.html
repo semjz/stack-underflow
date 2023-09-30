@@ -1,34 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ question.title }}
-    {{ question.body }}
-    {{ question.created_at }}
-    {{ question.updated_at }}
-    {{ question.votes }}
-    {{ question.user.username }}
-    {{ question.tag }}
+    <p>{{ question.title }}</p>
+    <p>{{ question.body }}</p>
+    <p>{{ question.created_at }}</p>
+    <p>{{ question.updated_at }}</p>
+    <p>{{ question.votes }}</p>
+    <p>{{ question.user.username }}</p>
+    <p>{{ question.tag }}</p>
     <form method="post">
         {% csrf_token %}
-        <input type="submit" value="up-vote">
-        <input type="submit" value="down-vote">
-        <input type="submit" value="edit">
+        <button type="submit" name = "question_action" value="upvote">upvote</button>
+        <button type="submit" name = "question_action" value="downvote">downvote</button>
+        <button type="submit" name = "question_action" value="edit">edit</button>
     </form>
+
     {% for answer in answers %}
-        {{ answer.body }}
-        {{ answer.created_at }}
-        {{ answer.updated_at }}
-        {{ answer.votes }}
-        {{ answer.user }}
+        <p>{{ answer.body }}</p>
+       <p>{{ answer.created_at }}</p>
+        <p>{{ answer.updated_at }}</p>
+        <p>{{ answer.votes }}</p>
+        <p>{{ answer.user.username }}</p>
         <form method="post">
             {% csrf_token %}
-            <input type="submit" value="up-vote">
-            <input type="submit" value="down-vote">
-            <input type="submit" value="edit">
+            <button type="submit" name = "answer_action" value="upvote">upvote</button>
+            <button type="submit" name = "answer_action" value="downvote">downvote</button>
+            <button type="submit" name = "answer_action" value="edit">edit</button>
         </form>
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="submit">
-        </form>
+
     {% endfor %}
+    <div class="answer-form">
+        <b>Answer Form:</b>
+        <form action="{% url "questions:answer_create" question.id %}" method="post">
+            {% csrf_token %}
+            {{ answer_form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 {% endblock %}

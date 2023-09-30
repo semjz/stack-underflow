@@ -2,7 +2,12 @@
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{form}}
+        {{form.as_p}}
         <input type="submit" value="search">
     </form>
+    {% for question in questions %}
+        <p>{{ question.title }}</p>
+         <p>{{ question.user.username }}</p>
+         <p>{{ question.created_at }}</p>
+    {% endfor %}
 {% endblock %}
