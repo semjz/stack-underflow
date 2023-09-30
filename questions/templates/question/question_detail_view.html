@@ -7,12 +7,10 @@
     <p>{{ question.votes }}</p>
     <p>{{ question.user.username }}</p>
     <p>{{ question.tag }}</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" name = "question_action" value="upvote">upvote</button>
-        <button type="submit" name = "question_action" value="downvote">downvote</button>
-        <button type="submit" name = "question_action" value="edit">edit</button>
-    </form>
+    <button type="submit" ><a href="{% url 'questions:question_upvote' question.id %}">upvote</a></button>
+    <button type="submit" ><a href="{% url 'questions:question_downvote' question.id %}">downvote</a></button>
+    <button type="submit" ><a href="{% url 'questions:question_update' question.id %}">edit</a></button>
+
 
     {% for answer in answers %}
         <p>{{ answer.body }}</p>
@@ -20,12 +18,10 @@
         <p>{{ answer.updated_at }}</p>
         <p>{{ answer.votes }}</p>
         <p>{{ answer.user.username }}</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" name = "answer_action" value="upvote">upvote</button>
-            <button type="submit" name = "answer_action" value="downvote">downvote</button>
-            <button type="submit" name = "answer_action" value="edit">edit</button>
-        </form>
+        <button type="submit" ><a href="{% url 'questions:answer_upvote' answer.id %}">upvote</a></button>
+        <button type="submit" ><a href="{% url 'questions:answer_downvote' answer.id %}">downvote</a></button>
+        <button type="submit" ><a href="{% url 'questions:answer_update' answer.id %}">edit</a></button>
+
 
     {% endfor %}
     <div class="answer-form">
