@@ -8,7 +8,7 @@ class QuestionForm(forms.ModelForm):
         fields = ["title", "body", "tags"]
 
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["tags"].widget = forms.CheckboxSelectMultiple()
 
 
@@ -18,7 +18,7 @@ class AnswerForm(forms.ModelForm):
         fields = ["body"]
 
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["body"].widget = forms.Textarea(attrs={"rows": 5})
 
 

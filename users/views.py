@@ -35,7 +35,7 @@ def user_login_view(request):
                 messages.success(request, "login successful")
                 return redirect("users:home")
             else:
-                messages.warning(request, "register unsuccessfully")
+                messages.warning(request, "login unsuccessfully")
     else:
         form = UserLoginForm()
 

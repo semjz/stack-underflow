@@ -13,20 +13,19 @@ class UserUpdateForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists() and self.instance.username != username:
             raise forms.ValidationError("This username is already exist!")
         return username
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists() and self.instance.email != email:
             raise forms.ValidationError("This email is already exist!")
         return email
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        if self.cleaned_data.get("password"):
-            user.set_password(self.cleaned_data["password"])
+        user.set_password(self.cleaned_data.get("password"))
         if commit:
             user.save()
         return user
