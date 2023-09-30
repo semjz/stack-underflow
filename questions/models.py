@@ -6,6 +6,12 @@ from django.urls import reverse
 class Tag(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f"{self.name}"
+
+    def __repr__(self):
+        return f"{self.name}"
+
 
 class Question(models.Model):
     title = models.CharField(max_length=100)
