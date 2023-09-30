@@ -7,9 +7,6 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ["title", "body", "tags"]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["tags"].widget = forms.CheckboxSelectMultiple()
 
 
 class AnswerForm(forms.ModelForm):
