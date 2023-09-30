@@ -31,6 +31,7 @@ def question_update_view(request, question_id):
         form = QuestionForm(request.POST, instance=question)
         if form.is_valid():
             form.save()
+        return redirect("questions:question_detail", question_id=question.id)
     else:
         form = QuestionForm()
 
@@ -91,43 +92,29 @@ def question_search_view(request):
 
 def answer_create_view(request, question_id):
     question = Question.objects.get(id=question_id)
-    answers = question.answer_set.all()
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.save(commit=False)
             answer.question = question
             answer.user = request.user
-            print("answer created")
             answer.save()
-    else:
-        form = AnswerForm()
-
-    context = {
-        "answer_form": form,
-        "question": question,
-        "answers": answers
-    }
-    return render(request, "question/question_detail_view.html", context)
+        return redirect("questions:question_detail", question_id=question_id)
 
 
 def answer_update_view(request, answer_id):
     answer = Answer.objects.get(id=answer_id)
-    question = answer.question
-    answers = question.answer_set.all()
+    question_id = answer.question.id
     if request.method == "POST":
         form = AnswerForm(request.POST, instance=answer)
         if form.is_valid():
             answer.save()
+        return redirect("questions:question_detail", question_id=question_id)
     else:
         form = AnswerForm()
 
-    context = {
-        "answer_form": form,
-        "question": question,
-        "answers": answers
-    }
-    return render(request, "question/question_detail_view.html", context)
+    return render(request, "question/answer_update.html", {"form": form})
+
 
 
 def answer_delete_view(request, answer_id):
